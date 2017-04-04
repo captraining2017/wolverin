@@ -8,12 +8,12 @@ import com.org.hackaton.model.Range;
 
 public class Config {
 	
-	public void configProperties(String fileName){
+	public static void configProperties(String fileName){
 		
 		 Properties prop = new Properties();
 	        try
 	        {            
-	            InputStream is = new FileInputStream(fileName);
+	            InputStream is = new FileInputStream(fileName+"");
 	            // load the properties file
 	            prop.load(is);
 	            Range range=new Range();

@@ -6,7 +6,9 @@ import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.TreeMap;
 
-import com.org.hackaton.view.Load;
+import com.org.hackaton.config.Config;
+import com.org.hackaton.constants.Constans;
+import com.org.hackaton.view.LoadFiles;
 
 import sun.reflect.generics.tree.Tree;
 
@@ -17,39 +19,56 @@ public class Service {
 	 * @throws IOException 
 	 */
 	public static void main(String[] args) throws IOException {
-		// D:/Wolverin/inbox
+		// D:/Wolverin
 		
-		Load load=new Load();
+		LoadFiles load=new LoadFiles();
 		Scanner scan=new Scanner(System.in);
+		//Config.configProperties(args[0]);
 		System.out.println("Select which Dataset to be load.....");
 		
-		File folder = new File(args[0]);
-		File[] listOfFiles = folder.listFiles();
+		File inbox = new File(args[0]+"/"+Constans.INBOX);
+		File[] listInboxFiles = inbox.listFiles();
+		
+		File MasterdataSet=new File(args[0]+"/"+Constans.MASTERDATASET);
+		File[] listDatasetFiles = MasterdataSet.listFiles();
 		
 		
 		TreeMap<Integer, String> fileName=new TreeMap<Integer, String>();
 		
+			for(int i=0; i<listDatasetFiles.length;i++){
+				
+				 if (listDatasetFiles[i].isFile()) {
+				        //System.out.println("File: "+i+" " + listOfFiles[i].getName());
+				        System.out.println(listDatasetFiles[i].getName());
+				    	
+				    	load.lodingCustomerCSV(args[0]+"/"+Constans.MASTERDATASET,listDatasetFiles[i].getName());
+				        
+				      }
+			}
+		
 			
-		    for (int i=0; i < listOfFiles.length; i++) {
-		      if (listOfFiles[i].isFile()) {
+			//list of files in inbox...
+		    for (int i=0; i < listInboxFiles.length; i++) {
+		      if (listInboxFiles[i].isFile()) {
 		        //System.out.println("File: "+i+" " + listOfFiles[i].getName());
-		        fileName.put(i,listOfFiles[i].getName());
+		        fileName.put(i,listInboxFiles[i].getName());
 		        
-		      } else if (listOfFiles[i].isDirectory()) {
-		        //System.out.println("Directory " + listOfFiles[i].getName());
+		      } else {
+		        System.out.println("No Files...");
 		      }
 		    }
+		    
+		    //option to load file...
 		    for(Entry<Integer, String> Name: fileName.entrySet()){
 		    	System.out.println(Name.getKey()+" : "+Name.getValue());
 		    }
 		    int option=scan.nextInt();
-		    if(option<listOfFiles.length){
-		    //System.out.println(option);
+		    //loading input file...
+		    if(option<listInboxFiles.length){
 		    	System.out.println(fileName.get(option).toString());
-		    	
-		    	load.lodingCSV(args[0],fileName.get(option).toString());
-		    	
-		    }
+		    
+		    	load.lodingTransactionCSV(args[0]+"/"+Constans.INBOX, fileName.get(option).toString());
+		    	}
 		    else{
 		    	System.out.println("enter correct value");
 		    }

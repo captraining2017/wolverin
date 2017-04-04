@@ -1,10 +1,10 @@
 package com.org.hackaton.model;
 
-import java.util.Date;
+//import java.util.Date;
 
 public class Tranaction {
 	
-	private Date tranactionDate;
+	private String tranactionDate;
 	private int customerId;
 	private float transAmount;
 	private String transType;
@@ -12,7 +12,7 @@ public class Tranaction {
 	{
 		
 	}
-	public Tranaction(Date tranactionDate, int customerId, float transAmount,
+	public Tranaction(String tranactionDate, int customerId, float transAmount,
 			String transType) {
 		super();
 		this.tranactionDate = tranactionDate;
@@ -20,10 +20,10 @@ public class Tranaction {
 		this.transAmount = transAmount;
 		this.transType = transType;
 	}
-	public Date getTranactionDate() {
+	public String getTranactionDate() {
 		return tranactionDate;
 	}
-	public void setTranactionDate(Date tranactionDate) {
+	public void setTranactionDate(String tranactionDate) {
 		this.tranactionDate = tranactionDate;
 	}
 	public int getCustomerId() {
